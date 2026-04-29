@@ -340,6 +340,12 @@ export const SettingsSheet = forwardRef<SettingsSheetRef, Props>(
       setStorage(s);
     }
 
+    function toggleHideBalance(v: boolean) {
+      Store.update((s) => {
+        s.settings.hideBalance = v;
+      });
+    }
+
     async function toggleBiometric(v: boolean) {
       if (v) {
         if (!bioAvailable) {
@@ -475,6 +481,23 @@ export const SettingsSheet = forwardRef<SettingsSheetRef, Props>(
           }
         >
           <Row
+            icon="dot"
+            iconColor="gray"
+            title="Bakiyeyi Gizle"
+            sub={
+              state.settings.hideBalance
+                ? "Tutarlar •••• olarak gösterilir"
+                : "Tutarları yıldızla maskele"
+            }
+            isFirst
+            rightSlot={
+              <Switch
+                value={!!state.settings.hideBalance}
+                onValueChange={toggleHideBalance}
+              />
+            }
+          />
+          <Row
             icon="check"
             iconColor="indigo"
             title={bioLabel}
@@ -483,7 +506,6 @@ export const SettingsSheet = forwardRef<SettingsSheetRef, Props>(
                 ? "Açılışta kimlik doğrulama"
                 : "Kapalı"
             }
-            isFirst
             rightSlot={
               <Switch
                 value={!!state.settings.biometricLock}

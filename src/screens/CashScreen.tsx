@@ -39,6 +39,7 @@ import {
   fmtDate,
   fmtMonthLabel,
   fmtTRY,
+  maskMoney,
   prevMonthKey,
 } from "../lib/format";
 import { categoryMeta } from "../lib/constants";
@@ -302,15 +303,22 @@ export function CashScreen() {
       >
         <Hero
           eyebrow={i18n("hero.balance")}
-          amount={fmtTRY(totals.balance)}
+          amount={maskMoney(fmtTRY(totals.balance), state.settings.hideBalance)}
           meta={(() => {
+            const hide = state.settings.hideBalance;
             const meta: { label: string; tone?: "pos" | "neg" }[] = [
               {
-                label: `+${fmtTRY(totals.income).replace("-", "")}`,
+                label: maskMoney(
+                  `+${fmtTRY(totals.income).replace("-", "")}`,
+                  hide,
+                ),
                 tone: "pos",
               },
               {
-                label: `−${fmtTRY(totals.expense).replace("-", "")}`,
+                label: maskMoney(
+                  `−${fmtTRY(totals.expense).replace("-", "")}`,
+                  hide,
+                ),
                 tone: "neg",
               },
             ];

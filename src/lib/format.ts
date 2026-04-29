@@ -33,6 +33,16 @@ export function fmtTRY(n: number): string {
   return `${sign}₺${Math.abs(v).toLocaleString("tr-TR")}`;
 }
 
+/**
+ * Replace digits/separators in a money-ish string with bullets while keeping
+ * sign and currency symbols visible. Used by privacy mode (Settings → Bakiyeyi
+ * Gizle) so the layout/colors don't shift when masking is on.
+ */
+export function maskMoney(text: string, hide: boolean | undefined): string {
+  if (!hide) return text;
+  return text.replace(/[\d.,]/g, "•");
+}
+
 export function fmtSigned(n: number): string {
   const v = Math.round(Number(n) || 0);
   if (v === 0) return fmtTRY(0);

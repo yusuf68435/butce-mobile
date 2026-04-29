@@ -101,6 +101,8 @@ export interface Settings {
   notifyMinute?: number;
   onboarded?: boolean;
   biometricLock?: boolean;
+  /** Mask all currency amounts as `••••` until tapped (privacy mode) */
+  hideBalance?: boolean;
 }
 
 export interface AppState {
