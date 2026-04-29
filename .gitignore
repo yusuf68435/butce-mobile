@@ -39,3 +39,7 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# Local design reference (saved-page snapshot from the PWA — not source)
+bütçe.html
+bütçe_files/

@@ -1,21 +1,33 @@
 {
   "expo": {
-    "name": "butce-mobile",
+    "name": "Bütçe",
     "slug": "butce-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
+    "jsEngine": "hermes",
     "newArchEnabled": true,
+    "scheme": "butce",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yusufuyar.butce",
+      "buildNumber": "1",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Fiş fotoğrafı çekmek için kamera erişimi gerekli.",
+        "NSPhotoLibraryUsageDescription": "Fiş fotoğrafı eklemek için fotoğraf erişimi gerekli.",
+        "NSFaceIDUsageDescription": "Bütçe'yi açarken kimlik doğrulamak için Face ID kullanılır.",
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
+      "package": "com.yusufuyar.butce",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -25,6 +37,31 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "@react-native-community/datetimepicker",
+      "expo-localization",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Fiş fotoğrafı eklemek için fotoğraf erişimi gerekli.",
+          "cameraPermission": "Fiş fotoğrafı çekmek için kamera erişimi gerekli."
+        }
+      ],
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Bütçe'yi açarken kimlik doğrulamak için Face ID kullanılır."
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": ""
+      }
+    },
+    "experiments": {
+      "tsconfigPaths": true
     }
   }
 }
