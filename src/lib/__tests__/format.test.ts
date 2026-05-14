@@ -7,6 +7,7 @@ import {
   fmtSigned,
   fmtTRY,
   inputAmount,
+  maskMoney,
   monthKeyOf,
   nextMonthKey,
   normalizeTags,
@@ -214,5 +215,31 @@ describe("shiftMonthKey / prevMonthKey / nextMonthKey", () => {
   });
   test("zero delta is identity", () => {
     expect(shiftMonthKey("2026-06", 0)).toBe("2026-06");
+  });
+});
+
+describe("maskMoney (privacy mode)", () => {
+  test("passthrough when hide is false/undefined", () => {
+    expect(maskMoney("₺1.234", false)).toBe("₺1.234");
+    expect(maskMoney("₺1.234", undefined)).toBe("₺1.234");
+  });
+
+  test("masks digits and thousands/decimal separators", () => {
+    expect(maskMoney("₺1.234", true)).toBe("₺•••••");
+    expect(maskMoney("₺1.234,56", true)).toBe("₺••••••••");
+  });
+
+  test("preserves currency symbol and sign characters", () => {
+    expect(maskMoney("+₺100", true)).toBe("+₺•••");
+    expect(maskMoney("−₺500", true)).toBe("−₺•••");
+    expect(maskMoney("-₺50", true)).toBe("-₺••");
+  });
+
+  test("masks a money string with all parts", () => {
+    expect(maskMoney("+₺1.234.567", true)).toBe("+₺•••••••••");
+  });
+
+  test("empty string stays empty", () => {
+    expect(maskMoney("", true)).toBe("");
   });
 });

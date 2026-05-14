@@ -29,7 +29,8 @@ Cihazda test için Expo Go uygulamasından QR'ı tara.
 - **Persist**: her `Store.update`'te AsyncStorage'a yazılır + sessiz haftalık otomatik yedek (`src/lib/autoBackup.ts`).
 - **UI**: tek ekran (CashScreen) + 14 sheet. Sheet'ler `forwardRef + useImperativeHandle` ile imperative API açar.
 - **Tema**: iOS semantic colors, light/dark/auto override (`src/theme/tokens.ts`).
-- **i18n**: TR + EN parite (`src/lib/i18n.ts`), system locale detect.
+- **i18n**: `src/lib/i18n.ts` — şu an TR-only (Personal Edition).
+  PWA tarafında 200+ key bilingual sözlük var, ileride port edilebilir.
 
 ## Klasör Yapısı
 
@@ -71,16 +72,16 @@ src/
 
 ## Test Stratejisi
 
-Jest + ts-jest. 79 test pure logic'e odaklı:
+Jest + ts-jest. **148 test** pure logic'e odaklı:
 
 - `selectors.ts` — addPeriod, monthlyTotals, chargeDueRecurring, tagSpending, debtsNet
 - `migrations.ts` — v0→v1→v2→v3 chain
-- `format.ts` — fmtTRY, parseAmount, normalizeTags
+- `format.ts` — fmtTRY, parseAmount, normalizeTags, maskMoney
 - `crypto.ts` — encrypt/decrypt round-trip
 - `insights.ts` — anomaly detection, cashflow, suggestCategory
 - `sampleData.ts` — sample state shape
 - `autoBackup.ts` — shouldBackup decision, pruneTargets
-- `i18n.ts` — TR/EN swap
+- `i18n.ts` — TR sözlük lookup
 
 UI komponentleri Expo cihaz testi ile doğrulanır.
 
